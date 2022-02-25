@@ -2,13 +2,12 @@ import sys
 from typing import Tuple
 import wikipedia
 import requests
+import os
+
+os.makedirs("output", exist_ok=True)
 
 
 number_of_requests = int(sys.argv[-1])
-
-
-with open("template.html") as f:
-	template = f.read()
 
 
 def get_article() -> Tuple[str, str]:
@@ -19,11 +18,8 @@ def get_article() -> Tuple[str, str]:
 	return article_url, article_id
 
 def write_article(art_id: str, art_url: str, sentences: str):
-	with open(f"output/{art_id}.html", "w") as f:
-		f.write(template.format(
-			url=art_url,
-			data=sentences
-		))
+	with open(f"output/{art_id}.txt", "w") as f:
+		f.write(art_url+"@@===#####===@@"+sentences)
 
 wikipedia.set_lang("fr")
 
