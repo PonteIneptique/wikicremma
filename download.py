@@ -3,6 +3,8 @@ from typing import Tuple
 import wikipedia
 import requests
 import os
+from urllib.parse import unquote
+
 
 os.makedirs("output", exist_ok=True)
 
@@ -26,7 +28,7 @@ wikipedia.set_lang("fr")
 while number_of_requests > 0:
 	try:
 		art_url, art_id = get_article()
-		write_article(art_id, art_url, wikipedia.summary(art_id, sentences=3))
+		write_article(art_id, art_url, ".".join(wikipedia.page(unquote(art_id)).summary.split(".")[:4]))
 		number_of_requests -= 1
 	except Exception as e:
 		print(e)
